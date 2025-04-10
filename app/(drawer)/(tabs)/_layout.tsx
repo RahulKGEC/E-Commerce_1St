@@ -1,20 +1,23 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-
+import MyContext from '@/components/myComponent/MyContext';
+// import { Evillcons } from '@expo/vector-icons';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+    <MyContext>
+
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: 'blue',
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
@@ -29,21 +32,22 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) =>  <IconSymbol name="house.fill" size={28}  color={color} />,
         }}
       />
-      {/* <Tabs.Screen
-        name="explore"
+      <Tabs.Screen
+        name="home"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Home',
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="user-circle" color={color} />,
         }}
-      /> */}
+      />
       <Tabs.Screen
         name="heart"
         options={{
-          title: 'Heart',
+          tabBarShowLabel: false,
           tabBarIcon: ({ color }) => <AntDesign size={28} name="hearto" color={color} />,
         }}
       />
@@ -51,10 +55,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name="cart"
         options={{
-          title: 'Cart',
+          // title: 'Cart',
+          tabBarShowLabel: false,
           tabBarIcon: ({ color }) => <AntDesign size={28} name="shoppingcart" color={color} />,
         }}
       />
     </Tabs>
+    </MyContext>
   );
 }

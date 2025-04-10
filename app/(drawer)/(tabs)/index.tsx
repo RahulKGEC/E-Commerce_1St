@@ -4,21 +4,72 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation, useRouter } from 'expo-router';
+import Header from '@/components/myComponent/Header';
+import { DrawerActions } from '@react-navigation/native';
+
+export const CartContext = createContext(null)
+
+
 
 export default function HomeScreen() {
+  const navigation = useNavigation()
+
+
+  const drawerOpen = () => {
+    navigation.dispatch(DrawerActions.openDrawer())
+  }
+  const { addToCart, wish,setCart,setWish, cart,addToWish, deleteFromCart,deleteFromWish} = useContext(CartContext)
   const offers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const [bg, setBg] = useState('#F2F2F2');
+  const [bg, setBg] = useState(null);
   const [data, setData] = useState([])
+  const [heartFill, setHeartFill] = useState(null)
+  // const [wish, setWish] = useState<any>([])
+  const router = useRouter()
+  const [box, setBox] = useState<any>([
+    {
+      id: 1,
+      title: "watch",
+      image: "https://in.images.search.yahoo.com/images/view;_ylt=AwrKEb4XYfdnNJ4URhu9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzU3YTE0MzkwMDAzNjgyNTFkZmQ3MTYwNmE2ZWFhY2ExBGdwb3MDMgRpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dimage%2Bwatch%26type%3DE210IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D2&w=1000&h=1000&imgurl=pngimg.com%2Fuploads%2Fwatches%2Fwatches_PNG9863.png&rurl=http%3A%2F%2Fpngimg.com%2Fdownload%2F9863&size=1065KB&p=image+watch&oid=57a1439000368251dfd71606a6eaaca1&fr2=piv-web&fr=mcafee&tt=watches+PNG+image&b=0&ni=21&no=2&ts=&tab=organic&sigr=epCm5Gq7McF1&sigb=ryHfxUOVO3rX&sigi=HSYxwnWYycw9&sigt=.D.eOL7s8Ql_&.crumb=U6NU9SILv66&fr=mcafee&fr2=piv-web&type=E210IN826G0",
+      screen: "/(drawer)/profile",
+
+    },
+    {
+      id: 2,
+      title: "bag",
+      image: "https://in.images.search.yahoo.com/images/view;_ylt=AwrKEb4XYfdnNJ4URhu9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzU3YTE0MzkwMDAzNjgyNTFkZmQ3MTYwNmE2ZWFhY2ExBGdwb3MDMgRpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dimage%2Bwatch%26type%3DE210IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D2&w=1000&h=1000&imgurl=pngimg.com%2Fuploads%2Fwatches%2Fwatches_PNG9863.png&rurl=http%3A%2F%2Fpngimg.com%2Fdownload%2F9863&size=1065KB&p=image+watch&oid=57a1439000368251dfd71606a6eaaca1&fr2=piv-web&fr=mcafee&tt=watches+PNG+image&b=0&ni=21&no=2&ts=&tab=organic&sigr=epCm5Gq7McF1&sigb=ryHfxUOVO3rX&sigi=HSYxwnWYycw9&sigt=.D.eOL7s8Ql_&.crumb=U6NU9SILv66&fr=mcafee&fr2=piv-web&type=E210IN826G0",
+      screen: "/(drawer)/(tabs)/home",
+
+    },
+    {
+      id: 3,
+      title: "shoe",
+      image: "https://in.images.search.yahoo.com/images/view;_ylt=AwrKEb4XYfdnNJ4URhu9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzU3YTE0MzkwMDAzNjgyNTFkZmQ3MTYwNmE2ZWFhY2ExBGdwb3MDMgRpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dimage%2Bwatch%26type%3DE210IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D2&w=1000&h=1000&imgurl=pngimg.com%2Fuploads%2Fwatches%2Fwatches_PNG9863.png&rurl=http%3A%2F%2Fpngimg.com%2Fdownload%2F9863&size=1065KB&p=image+watch&oid=57a1439000368251dfd71606a6eaaca1&fr2=piv-web&fr=mcafee&tt=watches+PNG+image&b=0&ni=21&no=2&ts=&tab=organic&sigr=epCm5Gq7McF1&sigb=ryHfxUOVO3rX&sigi=HSYxwnWYycw9&sigt=.D.eOL7s8Ql_&.crumb=U6NU9SILv66&fr=mcafee&fr2=piv-web&type=E210IN826G0",
+      screen: "/(drawer)/(tabs)/heart",
+
+    },
+    {
+      id: 4,
+      title: "glass",
+      image: "https://in.images.search.yahoo.com/images/view;_ylt=AwrKEb4XYfdnNJ4URhu9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzU3YTE0MzkwMDAzNjgyNTFkZmQ3MTYwNmE2ZWFhY2ExBGdwb3MDMgRpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dimage%2Bwatch%26type%3DE210IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D2&w=1000&h=1000&imgurl=pngimg.com%2Fuploads%2Fwatches%2Fwatches_PNG9863.png&rurl=http%3A%2F%2Fpngimg.com%2Fdownload%2F9863&size=1065KB&p=image+watch&oid=57a1439000368251dfd71606a6eaaca1&fr2=piv-web&fr=mcafee&tt=watches+PNG+image&b=0&ni=21&no=2&ts=&tab=organic&sigr=epCm5Gq7McF1&sigb=ryHfxUOVO3rX&sigi=HSYxwnWYycw9&sigt=.D.eOL7s8Ql_&.crumb=U6NU9SILv66&fr=mcafee&fr2=piv-web&type=E210IN826G0",
+      screen: "/(drawer)/(tabs)/cart",
+
+    },
+  ])
+
 
   const [expanded, setExpanded] = useState(false);
   const widthAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
-      .then((data) => { console.log(data), setData(data) })
+      .then((data) => { setData(data) })
   }, [])
+
+
+
   const toggleSearch = () => {
     if (expanded) {
       // collapse faster
@@ -39,13 +90,13 @@ export default function HomeScreen() {
   };
 
 
-
+  // const drawNavigation = useDrawerNavigation()
   return (
     <SafeAreaView style={{ backgroundColor: "white" }}>
       <ScrollView style={{}}>
 
-
-        <View style={{
+        <Header onPress={drawerOpen} />
+        {/* <View style={{
           position: "absolute",
           flexDirection: 'row',
           alignItems: 'center',
@@ -72,7 +123,7 @@ export default function HomeScreen() {
               />
             )}
           </Animated.View>
-        </View>
+        </View>  */}
 
 
 
@@ -142,27 +193,32 @@ export default function HomeScreen() {
         <View style={{ marginVertical: 20 }}>
           <ScrollView horizontal={true}>
 
-            {offers.map((item, index) => (
+            {box.map((item: any, index: any) => (
+
+
 
               <Pressable
-                onPressIn={() => setBg('#F17547')}
-                onPressOut={() => setBg('#F2F2F2')}
-                key={index}
+                onPress={() => router.push(item.screen)}
+                onPressIn={() => setBg(item?.id)}
+                onPressOut={() => setBg(null)}
+                key={item.id}
                 style={{
                   height: 64,
                   width: 64,
                   marginHorizontal: 10,
                   borderRadius: 10,
-                  backgroundColor: bg,
+                  backgroundColor: bg == item?.id ? '#F17547' : '#F2F2F2',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
               >
                 <Image
-                  source={require('../../../assets/images/bag.png')}
+                  source={{ uri: "https://tse1.mm.bing.net/th?id=OIP.tiFhZ6EMukg0B6lm2su47gHaLt&pid=Api&P=0&h=180" }}
                   style={{ width: 50, height: 50 }}
                 />
+
               </Pressable>
+
             ))}
 
           </ScrollView>
@@ -175,7 +231,8 @@ export default function HomeScreen() {
           <View style={{ width: "100%", flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
             {data && data.map((item, index) => (
 
-              <View style={[styles.bord, { height: 204, width: "47%", backgroundColor: "#F2F2F2", borderRadius: 14, position: "relative" }]}>
+              <TouchableOpacity style={[{ height: 204, width: "47%", backgroundColor: "#F2F2F2", borderRadius: 14, position: "relative" }]} onPress={() => { router.push(`/(drawer)/(tabs)/home?id=${item.id}`) }}>
+                {/* <View > */}
 
                 <Image source={{ uri: item.image }} height={90} width={90} style={{ position: "absolute", top: "25%", left: "21%" }} resizeMode="cover" />
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -193,9 +250,13 @@ export default function HomeScreen() {
                     }}>
                     <Text style={{ fontWeight: "600", color: "black", fontSize: 12 }}>50% OFF</Text>
                   </TouchableOpacity>
-                  <View style={[{ borderWidth: 2, borderColor: "#CFCFCF", height: 20, width: 20, position: "relative", right: 11, top: 3, borderRadius: "50%" }]}>
+                  <View style={[{ borderWidth: 2, borderColor: "#CFCFCF", height: 30, width: 30, position: "relative", right: 11, top: 3, borderRadius: "50%" }]}>
+                    {wish?.some((ele)=> ele.id === item.id)?
+                      <AntDesign name="heart" size={20} color="red" style={{ position: "absolute", right: 3, top: 4 }} onPress={() => deleteFromWish(item?.id)} />
+                      :
+                      <AntDesign name="hearto" size={20} color="#CFCFCF" style={{ position: "absolute", right: 3, top: 4 }} onPress={() => addToWish(item)} />
 
-                    <AntDesign name="heart" size={10} color="#CFCFCF" style={{ position: "absolute", right: 3, top: 4 }} />
+                    }
                   </View>
 
 
@@ -216,7 +277,8 @@ export default function HomeScreen() {
                     ₹ {item.price}
                   </Text>
                 </View>
-              </View>
+                {/* </View> */}
+              </TouchableOpacity>
 
             ))}
 
