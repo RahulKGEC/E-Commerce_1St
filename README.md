@@ -2,6 +2,28 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## 📸 App Screenshots
+
+### 1. Home View
+<img src="./assets/images/camera1.jpeg" alt="Camera View" width="300"/>
+
+### 2. UI of Add To Cart
+<img src="./assets/images/camera2.jpeg" alt="UI Buttons" width="300"/>
+
+### 3. Product Detail page
+<img src="./assets/images/camera3.jpeg" alt="Capture Code" width="300"/>
+
+### 4. UI of Add To Wish Page
+<img src="./assets/images/camera4.jpeg" alt="Final Preview" width="300"/>
+
+
+
+🙌 Author
+Made by Rahul
+Final year MCA student | Passionate React Native Developer
+GitHub • LinkedIn
+
+
 ## Get started
 
 1. Install dependencies
