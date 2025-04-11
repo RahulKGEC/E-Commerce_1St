@@ -99,7 +99,7 @@ useEffect(()=>{
 
         <TouchableOpacity  onPress={()=>{addToCart(detail)}} style={{ height: 38, width: "88%", backgroundColor: "#F16A26", justifyContent: "center", alignItems: "center", marginHorizontal: "auto", borderRadius: 14, marginTop: 19 }}>
           <Text style={{ fontSize: 15, color: "white" }}>
-            But Now
+            Buy Now
           </Text>
         </TouchableOpacity>
 

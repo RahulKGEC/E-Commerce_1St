@@ -70,24 +70,7 @@ export default function HomeScreen() {
 
 
 
-  const toggleSearch = () => {
-    if (expanded) {
-      // collapse faster
-      Animated.timing(widthAnim, {
-        toValue: 0,
-        duration: 150,
-        useNativeDriver: false,
-      }).start(() => setExpanded(false));
-    } else {
-      setExpanded(true);
-      // expand faster
-      Animated.timing(widthAnim, {
-        toValue: 200,
-        duration: 150,
-        useNativeDriver: false,
-      }).start();
-    }
-  };
+ 
 
 
   // const drawNavigation = useDrawerNavigation()
@@ -96,34 +79,7 @@ export default function HomeScreen() {
       <ScrollView style={{}}>
 
         <Header onPress={drawerOpen} />
-        {/* <View style={{
-          position: "absolute",
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingHorizontal: 10,
-          backgroundColor: '#CFCFCF',
-          borderRadius: 25,
-          margin: 10,
-          alignSelf: 'flex-end',
-        }}>
-          <TouchableOpacity onPress={toggleSearch}>
-            <AntDesign name="search1" size={20} color="black" style={{ padding: 5 }} />
-          </TouchableOpacity>
-
-          <Animated.View style={{ width: widthAnim, overflow: 'hidden' }}>
-            {expanded && (
-              <TextInput
-                placeholder="Search..."
-                style={{
-                  height: 42,
-                  paddingHorizontal: 10,
-                  fontSize: 14,
-                }}
-                autoFocus
-              />
-            )}
-          </Animated.View>
-        </View>  */}
+       
 
 
 

@@ -15,27 +15,23 @@ const cart = () => {
   const [count, setCount] = useState(1)
 
   function updateQTY(id, state) {
+    console.log({id})
     const updatedCart = cart.map((ele) => {
       if (ele.id === id) {
         if (state) {
           return { ...ele, qty: (ele.qty ?? 1) + 1 }
-        } else {
-          if (ele.qty ?? 1 === 1) {
-
-
-            return { ...ele, qty: 1 }
-          } else {
+        } else { 
             return { ...ele, qty: (ele.qty ?? 1) - 1 }
-
-          }
+          
         }
       } else {
         return ele;
       }
     })
+    console.log({updatedCart})
     setCart(updatedCart)
   }
-  console.log(cart[0].qty)
+  // console.log(cart[0].qty)
 
   return (
     <SafeAreaView>
@@ -53,7 +49,7 @@ const cart = () => {
 
 
 
-              {cart.map((item: any, index) => (
+              { cart.length && cart?.map((item: any, index) => (
 
 
 
@@ -61,15 +57,15 @@ const cart = () => {
 
 
                   <View style={[{ height: 70, width: 70, marginVertical: "auto", justifyContent: "center", alignItems: "center", backgroundColor: "#EDD3D4", borderRadius: 10 }]}>
-                    <Image source={{ uri: item.image }} style={{ height: 50, width: 50, }} />
+                    <Image source={{ uri: item?.image }} style={{ height: 50, width: 50, }} />
                   </View>
 
                   <View style={[{ height: 70, width: 100, marginVertical: "auto", marginLeft: 13, gap: 10, justifyContent: "center", alignItems: "flex-start" }]}>
                     <Text style={{ fontSize: 12 }}>
-                      {item.title.slice(0, 19) + "..."}
+                      {item?.title.slice(0, 19) + "..."}
                     </Text>
                     <Text style={{ fontSize: 14, fontWeight: "800", alignSelf: "flex-start" }}>
-                      $ {item.price}
+                      $ {item?.price}
                     </Text>
                   </View>
                   <View style={[{ height: 70, width: 70, marginVertical: "auto", justifyContent: "center", alignItems: "center", gap: 10 }]}>
@@ -80,13 +76,13 @@ const cart = () => {
                     <View style={[{ height: 30, width: 55, borderRadius: 7, flexDirection: "row", gap: 5, alignItems: "center", justifyContent: "center" }]}>
 
 
-                      <Entypo name="plus" style={{ fontSize: 22, color: "#000" }} onPress={() => updateQTY(item.id, 1)} />
+                      <Entypo name="plus" style={{ fontSize: 22, color: "#000" }} onPress={() => {updateQTY(item?.id, 1),console.log(item.id)}} />
 
                       <Text style={{ fontSize: 11 }}>
                         {item?.qty ?? 1}
                       </Text>
 
-                      <Entypo name="minus" style={{ fontSize: 22, color: "#000" }} onPress={() => updateQTY(item.id, 0)} />
+                      <Entypo name="minus" style={{ fontSize: 22, color: "#000" }} onPress={() =>{item?.qty==1?deleteFromCart(item?.id):  updateQTY(item?.id, 0),console.log(item.id)}} />
                     </View>
                   </View>
                 </View>
@@ -104,7 +100,7 @@ const cart = () => {
               Total
             </Text>
             <Text style={[{ fontSize: 17, fontWeight: "700", color: "#F17547" }]}>
-              $ {cart.reduce((accu, item) => accu + Number(Number(item.price) * Number(item.qty ?? 1)), 0).toFixed(2)}
+              $ {cart.reduce((accu, item) => accu + Number(Number(item?.price) * Number(item?.qty ?? 1)), 0).toFixed(2)}
             </Text>
           </View>
 
